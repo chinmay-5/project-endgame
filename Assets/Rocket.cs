@@ -13,18 +13,27 @@ public class Rocket : MonoBehaviour
     }
     void Update()
     {
+        Thrust();
+        Rotate();
+    }
+    private void Thrust()
+    {
         if (Input.GetKey(KeyCode.Space))
         {
             rigidBody.AddRelativeForce(Vector3.up);
             if (!audioSource.isPlaying)
             {
                 audioSource.Play();
-            }     
+            }
         }
         else
         {
             audioSource.Stop();
         }
+    }
+    private void Rotate()
+    {
+        rigidBody.freezeRotation = true;
         if (Input.GetKey(KeyCode.A))
         {
             transform.Rotate(Vector3.forward);
@@ -33,6 +42,8 @@ public class Rocket : MonoBehaviour
         {
             transform.Rotate(-Vector3.forward);
         }
-
+        rigidBody.freezeRotation = false;
     }
+
+   
 }

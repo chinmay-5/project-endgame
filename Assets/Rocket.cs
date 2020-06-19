@@ -21,7 +21,7 @@ public class Rocket : MonoBehaviour
     }
     private void Thrust()
     {
-        if (Input.GetKey(KeyCode.W))
+        if (Input.GetKey(KeyCode.Space))
         {
             rigidBody.AddRelativeForce(Vector3.up * thrustfactor);
             if (!audioSource.isPlaying)

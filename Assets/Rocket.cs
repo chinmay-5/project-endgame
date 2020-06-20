@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-
+﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 public class Rocket : MonoBehaviour
 {
     [SerializeField] float thrustfactor = 100f;
@@ -9,15 +7,20 @@ public class Rocket : MonoBehaviour
 
     Rigidbody rigidBody;
     AudioSource audioSource;
+    enum State {alive, dead, trans};
+    State state = State.alive;
     void Start()
     {
         rigidBody = GetComponent<Rigidbody>();
         audioSource = GetComponent<AudioSource>();
     }
     void Update()
-    {
-        Thrust();
-        Rotate();
+    {   
+        if (state == State.alive)
+        {
+            Thrust();
+            Rotate();
+        }
     }
     private void Thrust()
     {
@@ -56,15 +59,27 @@ public class Rocket : MonoBehaviour
         switch (collision.gameObject.tag)
         {
             case "Friendly":
-                print("OK");
                 break;
-            case "Fuel":
-                print("Fuel++");
+            case "Finish":
+                state = State.trans;
+                Invoke("LoadNextLvl",1f);
                 break;
             default:
-                print("Game Over");
+                state = State.dead;
+                Invoke("Respawn",1.5f);
                 break;
         }
     }
 
+    private void Respawn()
+    {
+        SceneManager.LoadScene(0);
+        state = State.alive;
+    }
+
+    private void LoadNextLvl()
+    {
+        SceneManager.LoadScene(1);
+        state = State.alive;
+    }
 }

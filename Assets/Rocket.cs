@@ -55,7 +55,9 @@ public class Rocket : MonoBehaviour
     }
     
     void OnCollisionEnter(Collision collision)
-    {
+    {   
+        if (state != State.alive) { return; }
+
         switch (collision.gameObject.tag)
         {
             case "Friendly":
@@ -66,7 +68,7 @@ public class Rocket : MonoBehaviour
                 break;
             default:
                 state = State.dead;
-                Invoke("Respawn",1.5f);
+                Invoke("Respawn",1f);
                 break;
         }
     }
@@ -74,12 +76,10 @@ public class Rocket : MonoBehaviour
     private void Respawn()
     {
         SceneManager.LoadScene(0);
-        state = State.alive;
     }
 
     private void LoadNextLvl()
     {
         SceneManager.LoadScene(1);
-        state = State.alive;
     }
 }

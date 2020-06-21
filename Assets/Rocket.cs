@@ -5,6 +5,14 @@ public class Rocket : MonoBehaviour
     [SerializeField] float thrustfactor = 100f;
     [SerializeField] float rotationfactor = 250f;
 
+    [SerializeField] AudioClip mainEngine;
+    [SerializeField] AudioClip explosion;
+    [SerializeField] AudioClip lvlUp;
+
+    [SerializeField] ParticleSystem mainEngineParticles;
+    [SerializeField] ParticleSystem explosionParticles;
+    [SerializeField] ParticleSystem lvlUpParticles;
+
     Rigidbody rigidBody;
     AudioSource audioSource;
     enum State {alive, dead, trans};
@@ -26,17 +34,26 @@ public class Rocket : MonoBehaviour
     {
         if (Input.GetKey(KeyCode.Space))
         {
-            rigidBody.AddRelativeForce(Vector3.up * thrustfactor);
-            if (!audioSource.isPlaying)
-            {
-                audioSource.Play();
-            }
+            ThrustForce();
         }
         else
         {
             audioSource.Stop();
+            mainEngineParticles.Stop();
         }
     }
+
+    private void ThrustForce()
+    {
+        float thrustframe = thrustfactor * Time.deltaTime;
+        rigidBody.AddRelativeForce(Vector3.up * thrustframe);
+        if (!audioSource.isPlaying)
+        {
+            audioSource.PlayOneShot(mainEngine);
+            mainEngineParticles.Play();
+        }
+    }
+
     private void Rotate()
     {
         rigidBody.freezeRotation = true;
@@ -63,14 +80,32 @@ public class Rocket : MonoBehaviour
             case "Friendly":
                 break;
             case "Finish":
-                state = State.trans;
-                Invoke("LoadNextLvl",1f);
+                StartNextLvl();
                 break;
             default:
-                state = State.dead;
-                Invoke("Respawn",1f);
+                StartRespawn();
                 break;
         }
+    }
+
+    private void StartRespawn()
+    {
+        state = State.dead;
+        audioSource.Stop();
+        audioSource.PlayOneShot(explosion);
+        mainEngineParticles.Stop();
+        explosionParticles.Play();
+        Invoke("Respawn", 1f);
+    }
+
+    private void StartNextLvl()
+    {
+        state = State.trans;
+        audioSource.Stop();
+        audioSource.PlayOneShot(lvlUp);
+        mainEngineParticles.Stop();
+        lvlUpParticles.Play();
+        Invoke("LoadNextLvl", 1f);
     }
 
     private void Respawn()

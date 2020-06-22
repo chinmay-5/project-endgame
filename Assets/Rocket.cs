@@ -4,6 +4,7 @@ public class Rocket : MonoBehaviour
 {
     [SerializeField] float thrustfactor = 100f;
     [SerializeField] float rotationfactor = 250f;
+    [SerializeField] float lvlLoadDelay = 1f;
 
     [SerializeField] AudioClip mainEngine;
     [SerializeField] AudioClip explosion;
@@ -45,8 +46,7 @@ public class Rocket : MonoBehaviour
 
     private void ThrustForce()
     {
-        float thrustframe = thrustfactor * Time.deltaTime;
-        rigidBody.AddRelativeForce(Vector3.up * thrustframe);
+        rigidBody.AddRelativeForce(Vector3.up * thrustfactor * Time.deltaTime);
         if (!audioSource.isPlaying)
         {
             audioSource.PlayOneShot(mainEngine);
@@ -95,7 +95,7 @@ public class Rocket : MonoBehaviour
         audioSource.PlayOneShot(explosion);
         mainEngineParticles.Stop();
         explosionParticles.Play();
-        Invoke("Respawn", 1f);
+        Invoke("Respawn", lvlLoadDelay);
     }
 
     private void StartNextLvl()
@@ -105,7 +105,7 @@ public class Rocket : MonoBehaviour
         audioSource.PlayOneShot(lvlUp);
         mainEngineParticles.Stop();
         lvlUpParticles.Play();
-        Invoke("LoadNextLvl", 1f);
+        Invoke("LoadNextLvl", lvlLoadDelay);
     }
 
     private void Respawn()

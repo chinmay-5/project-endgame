@@ -5,9 +5,9 @@ using UnityEngine;
 [DisallowMultipleComponent]
 public class Oscillator : MonoBehaviour
 {
-    [SerializeField] Vector3 movementVector = new Vector3(10,0,0);
+    [SerializeField] Vector3 movementVector = new Vector3(0,0,0);
     [Range(0, 1)] [SerializeField] float movementFactor;
-    [SerializeField] float period = 2f;
+    [SerializeField] float period = 5f;
 
     Vector3 startPos;
     void Start()

@@ -18,8 +18,8 @@ public class IronMan : MonoBehaviour
 
     Rigidbody rigidBody;
     AudioSource audioSource;
-    enum State { alive, dead, trans };
-    State state = State.alive;
+    
+    bool isAlive = true;
     bool collisionsDisabled = false;
     void Start()
     {
@@ -28,7 +28,7 @@ public class IronMan : MonoBehaviour
     }
     void Update()
     {
-        if (state == State.alive)
+        if (isAlive == true)
         {
             Thrust();
             Rotate();
@@ -61,8 +61,6 @@ public class IronMan : MonoBehaviour
         {
             audioSource.Stop();
             mainEngineParticles.Stop();
-            mainEngineParticles1.Stop();
-            mainEngineParticles2.Stop();
         }
     }
 
@@ -80,7 +78,7 @@ public class IronMan : MonoBehaviour
 
     private void Rotate()
     {
-        rigidBody.freezeRotation = true;
+        rigidBody.angularVelocity = Vector3.zero;
 
         float rotationframe = rotationfactor * Time.deltaTime;
         if (Input.GetKey(KeyCode.A))
@@ -91,13 +89,11 @@ public class IronMan : MonoBehaviour
         {
             transform.Rotate(-Vector3.forward * rotationframe);
         }
-
-        rigidBody.freezeRotation = false;
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        if (state != State.alive || collisionsDisabled) { return; }
+        if (isAlive == false || collisionsDisabled) { return; }
 
         switch (collision.gameObject.tag)
         {
@@ -114,7 +110,7 @@ public class IronMan : MonoBehaviour
 
     private void StartRespawn()
     {
-        state = State.dead;
+        isAlive = false;
         audioSource.Stop();
         audioSource.PlayOneShot(explosion);
         mainEngineParticles.Stop();
@@ -126,7 +122,7 @@ public class IronMan : MonoBehaviour
 
     private void StartNextLvl()
     {
-        state = State.trans;
+        isAlive = false;
         audioSource.Stop();
         audioSource.PlayOneShot(lvlUp);
         mainEngineParticles.Stop();

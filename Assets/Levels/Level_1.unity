@@ -1652,7 +1652,7 @@ GameObject:
   - component: {fileID: 1455866544}
   - component: {fileID: 1455866543}
   m_Layer: 0
-  m_Name: original
+  m_Name: Wind_Ambience
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1671,7 +1671,7 @@ AudioSource:
   m_audioClip: {fileID: 8300000, guid: ebd29f820381e5b47b00ee7bb1106b8a, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
-  m_Pitch: 1
+  m_Pitch: -0.4
   Loop: 1
   Mute: 0
   Spatialize: 0
@@ -2309,51 +2309,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 91995821520634616, guid: a5e8c848da7cf13488f853ad3ff887cb,
-        type: 3}
-      propertyPath: m_LocalPosition.x
-      value: 0.12
-      objectReference: {fileID: 0}
-    - target: {fileID: 91995821520634616, guid: a5e8c848da7cf13488f853ad3ff887cb,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 91995821520634616, guid: a5e8c848da7cf13488f853ad3ff887cb,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 91995821520634616, guid: a5e8c848da7cf13488f853ad3ff887cb,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 91995821520634616, guid: a5e8c848da7cf13488f853ad3ff887cb,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 91995822104697439, guid: a5e8c848da7cf13488f853ad3ff887cb,
-        type: 3}
-      propertyPath: m_LocalPosition.y
-      value: -1.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 91995822104697439, guid: a5e8c848da7cf13488f853ad3ff887cb,
-        type: 3}
-      propertyPath: m_LocalScale.x
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 91995822104697439, guid: a5e8c848da7cf13488f853ad3ff887cb,
-        type: 3}
-      propertyPath: m_LocalScale.y
-      value: 0.25
-      objectReference: {fileID: 0}
-    - target: {fileID: 91995822104697439, guid: a5e8c848da7cf13488f853ad3ff887cb,
-        type: 3}
-      propertyPath: m_LocalScale.z
-      value: 0.25
-      objectReference: {fileID: 0}
     - target: {fileID: 96642687151984016, guid: a5e8c848da7cf13488f853ad3ff887cb,
         type: 3}
       propertyPath: m_Name
@@ -2367,7 +2322,7 @@ PrefabInstance:
     - target: {fileID: 96642687151984029, guid: a5e8c848da7cf13488f853ad3ff887cb,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 8.76
+      value: 7.03
       objectReference: {fileID: 0}
     - target: {fileID: 96642687151984029, guid: a5e8c848da7cf13488f853ad3ff887cb,
         type: 3}
